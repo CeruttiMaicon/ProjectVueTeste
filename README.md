@@ -1,29 +1,29 @@
-# vue_projetc
+# Projeto Vue JS para testes
 
-## Project setup
+## Configurando projeto
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Compilando e usando o hot-reloads para desenvolvimento
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Compilando e minificando para produção
 ```
 npm run build
 ```
 
-### Run your tests
+### Executando o testes
 ```
 npm run test
 ```
 
-### Lints and fixes files
+### Listas e arquivos fixos
 ```
 npm run lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Customizando configurações
+Veja [Configurações de referência](https://cli.vuejs.org/config/).
