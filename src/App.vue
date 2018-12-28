@@ -1,29 +1,71 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
     <router-view/>
+    <h2>Inspetor de solda</h2>
+    <div id="nav"> 
+      <div><video ref="video" id="video" width="640" height="480" autoplay></video></div>
+        <div><button id="snap" v-on:click="capture()">Snap Photo</button></div>
+        <canvas ref="canvas" id="canvas" width="640" height="480"></canvas>
+        <ul>
+            <li v-for="c in captures" :key="c">
+                <img v-bind:src="c" height="50" />
+            </li>
+        </ul>
+        
+    </div>
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
+<script>
+  export default {
+        name: 'app',
+        data() {
+            return {
+                video: {},
+                canvas: {},
+                captures: []
+            }
+        },
+        
+        mounted() {
+            this.video = this.$refs.video;
+            if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                //parte da função que é responsavel por fazer a captura de video
+                navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
+                    this.video.srcObject=stream;
+                    this.video.play();
+                });
+            }
+        },
+        methods: {
+            //função que faz a captura de imagem
+            capture() {
+                this.canvas = this.$refs.canvas;
+                var context = this.canvas.getContext("2d").drawImage(this.video, 0, 0, 640, 480);
+                this.captures.push(canvas.toDataURL("image/png"));
+            }
+        }
     }
-  }
-}
+    
+</script>
+<style lang="scss">
+body {
+        background-color: #F0F0F0;
+    }
+    #app {
+        text-align: center;
+        color: #2c3e50;
+        margin-top: 60px;
+    }
+    #video {
+        background-color: #000000;
+    }
+    #canvas {
+        display: none;
+    }
+    li {
+        display: inline;
+        padding: 5px;
+    }
+
 </style>
